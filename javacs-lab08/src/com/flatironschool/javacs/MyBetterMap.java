@@ -25,12 +25,11 @@ public class MyBetterMap<K, V> implements Map<K, V> {
 	protected List<MyLinearMap<K, V>> maps;
 	
 	/**
-	 * Initialize the map with `k` sub-maps.
+	 * Initialize the map with 2 sub-maps.
 	 * 
-	 * @param k
 	 */
-	public MyBetterMap(int k) {
-		makeMaps(k);
+	public MyBetterMap() {
+		makeMaps(2);
 	}
 
 	/**
@@ -151,7 +150,7 @@ public class MyBetterMap<K, V> implements Map<K, V> {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Map<String, Integer> map = new MyLinearMap<String, Integer>();
+		Map<String, Integer> map = new MyBetterMap<String, Integer>();
 		map.put("Word1", 1);
 		map.put("Word2", 2);
 		Integer value = map.get("Word1");

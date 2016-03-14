@@ -20,14 +20,9 @@ public class MyHashMap<K, V> extends MyBetterMap<K, V> implements Map<K, V> {
 	// average number of entries per map before we rehash
 	private static final double FACTOR = 1.0;
 
-	public MyHashMap(int n) {
-		super(n);
-	}
-
 	@Override
 	public V put(K key, V value) {
-		MyLinearMap<K, V> map = chooseMap(key);
-		V oldValue = map.put(key, value);
+		V oldValue = super.put(key, value);
 		
 		//System.out.println("Put " + key + " in " + map + " size now " + map.size());
 		
@@ -66,7 +61,7 @@ public class MyHashMap<K, V> extends MyBetterMap<K, V> implements Map<K, V> {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Map<String, Integer> map = new MyHashMap<String, Integer>(2);
+		Map<String, Integer> map = new MyHashMap<String, Integer>();
 		for (int i=0; i<10; i++) {
 			map.put(new Integer(i).toString(), i);
 		}

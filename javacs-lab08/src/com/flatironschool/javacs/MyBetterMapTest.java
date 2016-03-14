@@ -16,7 +16,7 @@ public class MyBetterMapTest extends MyLinearMapTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		map = new MyBetterMap<String, Integer>(4);
+		map = new MyBetterMap<String, Integer>();
 		map.put("One", 1);
 		map.put("Two", 2);
 		map.put("Three", 3);
