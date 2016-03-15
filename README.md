@@ -1,6 +1,6 @@
 # cs-implementing-a-hashtable-lab
 
-## Learning goals 
+## Learning goals
 
 1.  Implement the `Map` interface using a hash table.
 2.  Analyze the performance of the hash table implementation.
@@ -19,17 +19,17 @@ When you check out the repository for this lab, you should find a file structure
 In the subdirectory `javacs-lab08/src/com/flatironschool/javacs` you'll find the source files for this lab:
 
 *  `MyLinearMap.java` contains our solution to the previous lab, which we will build on in this lab.
-    
+
 *  `MyBetterMap.java` contains the code from the previous README with some methods you will fill in.
-  
-*  `MyHashMap.java` contains the outline of a hash table that grows when needed, which you will complete. 
-    
+
+*  `MyHashMap.java` contains the outline of a hash table that grows when needed, which you will complete.
+
 *  `MyLinearMapTest.java` contains the unit tests for `MyLinearMap`.
 
 *  `MyBetterMapTest.java` contains the unit tests for `MyBetterMap`.
 
 *  `MyHashMapTest.java` contains the unit tests for `MyHashMap`.
-    
+
 *  `Profiler.java` contains code for measuring and plotting runtime versus problem size.
 
 *  `ProfileMapPut.java` contains code that profiles the `Map.put` method.
@@ -58,14 +58,14 @@ In `MyHashMap.java`, we provide the outline of a hash table that grows when need
 
 ```java
 public class MyHashMap<K, V> extends MyBetterMap<K, V> implements Map<K, V> {
-	
+
 	// average number of entries per sub-map before we rehash
 	private static final double FACTOR = 1.0;
 
 	@Override
 	public V put(K key, V value) {
 		V oldValue = super.put(key, value);
-		
+
 		// check if the number of elements per sub-map exceeds the threshold
 		if (size() > maps.size() * FACTOR) {
 			rehash();
@@ -140,7 +140,7 @@ And there's one more limitation: some of the methods that were constant time in 
 	}
 ```
 
-`clear` has to clear all of the sub-maps, and the number of submaps is proportional to `n`, so it's linear.  Fortunately, this operation is not used very often, so for most applications this tradeoff is acceptable.
+`clear` has to clear all of the sub-maps, and the number of sub-maps is proportional to `n`, so it's linear.  Fortunately, this operation is not used very often, so for most applications this tradeoff is acceptable.
 
 
 ## Profiling `MyHashMap`
@@ -149,7 +149,7 @@ Before we go on, we should check whether `MyHashMap` is really constant time.
 
 *  In `javacs-lab08`, run `ant build` to compile the source files.  Then run `ant ProfileMapPut`.  It measures the runtime of `HashMap.put` (provided by Java) with a range of problem sizes, and plots runtime versus problem size on a log-log scale.  If this operation is constant time, the total time for `n` operations should be linear, so the result should be a straight line with slope 1.  When we ran this code, the estimated slope was close to 1, which is consistent with our analysis.  You should get something similar.
 
-*  Modify `ProfileMapPut.java` so it profiles your implementation, `MyHashMap`, instead of Java's `HashMap`.  Run the profiler again and see if the slope is near 1.  You might have to adjust `startN` and `endMillis` to find a range of problem sizes where the runtimes are more than a few milliseconds, but not more than a few thousand. 
+*  Modify `ProfileMapPut.java` so it profiles your implementation, `MyHashMap`, instead of Java's `HashMap`.  Run the profiler again and see if the slope is near 1.  You might have to adjust `startN` and `endMillis` to find a range of problem sizes where the runtimes are more than a few milliseconds, but not more than a few thousand.
 
 *  When we ran this code, we got a surprise: the slope was about 1.7, which suggests that our implementation is not constant time after all.  It contains a "performance bug".  As the last exercise for this lab, you should track down the error, fix it, and confirm that `put` is constant time, as expected.
 
