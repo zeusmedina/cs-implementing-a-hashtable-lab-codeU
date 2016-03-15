@@ -1,6 +1,9 @@
 tags:
-  - a tag
+  - Map interface
+  - hash table
+  - analysis of algorithms
+  - performance bug
 languages:
-  - a language
+  - Jave
 resources: 
-  - 0
+  - 1
