@@ -75,7 +75,9 @@ public class MyHashMap<K, V> extends MyBetterMap<K, V> implements Map<K, V> {
 }
 ```
 
-`MyHashMap` extends `MyBetterMap`, so it inherits the methods defined there.  The only method it overrides is `put` which calls `put` in the superclass — that is, it calls the version of `put` in `MyBetterMap` — and then it checks whether it has to rehash.  Calling `size` returns the total number of entries, `n`.  Calling `maps.size` returns the number of embedded maps, `k`.  If the ratio of `n` to `k` exceeds the threshold, `FACTOR`, we call `rehash`.  The constant `FACTOR`, which is called the **load factor**, determines the maximum number of entries per sub-map, on average.
+`MyHashMap` extends `MyBetterMap`, so it inherits the methods defined there.  The only method it overrides is `put` which calls `put` in the superclass — that is, it calls the version of `put` in `MyBetterMap` — and then it checks whether it has to rehash.  Calling `size` returns the total number of entries, `n`.  Calling `maps.size` returns the number of embedded maps, `k`.
+
+The constant `FACTOR`, which is called the **load factor**, determines the maximum number of entries per sub-map, on average.  If `n > k * FACTOR`, that means `n/k > FACTOR`, which means the number of entries per sub-map exceeds the threshold, so we call `rehash`. 
 
 *  In `javacs-lab08`, run `ant build` to compile the source files.  Then run `ant test2`, which runs `MyHashMapTest`.  It should fail because our implementation of `rehash` throws an exception.  Your job is to fill it in.
 
