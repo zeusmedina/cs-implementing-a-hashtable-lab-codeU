@@ -2,7 +2,6 @@ package com.flatironschool.javacs;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.jfree.data.xy.XYSeries;
 
@@ -15,8 +14,7 @@ public class ProfileMapPut {
 	 */
 	public static void main(String[] args) {
 		//profileHashMapPut();
-		//profileMyHashMapPut();
-		profileMyFixedHashMapPut();
+		profileMyHashMapPut();
 	}
 
 	/**
@@ -61,29 +59,6 @@ public class ProfileMapPut {
 		int startN = 1000;
 		int endMillis = 5000;
 		runProfiler("MyHashMap put", timeable, startN, endMillis);
-	}
-	
-
-	/**
-	 * Characterize the run time of putting a key in MyFixedHashMap
-	 */
-	public static void profileMyFixedHashMapPut() {
-		Timeable timeable = new Timeable() {
-			Map<String, Integer> map;
-
-			public void setup(int n) {
-				map = new MyFixedHashMap<String, Integer>();
-			}
-
-			public void timeMe(int n) {
-				for (int i=0; i<n; i++) {
-					map.put(String.format("%10d", i), i);
-				}
-			}
-		};
-		int startN = 8000;
-		int endMillis = 1000;
-		runProfiler("MyFixedHashMap put", timeable, startN, endMillis);
 	}
 	
 	/**
