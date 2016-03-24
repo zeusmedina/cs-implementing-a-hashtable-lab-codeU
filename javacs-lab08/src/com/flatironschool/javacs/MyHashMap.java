@@ -18,7 +18,7 @@ import java.util.Map;
 public class MyHashMap<K, V> extends MyBetterMap<K, V> implements Map<K, V> {
 	
 	// average number of entries per map before we rehash
-	private static final double FACTOR = 1.0;
+	protected static final double FACTOR = 1.0;
 
 	@Override
 	public V put(K key, V value) {
@@ -39,7 +39,7 @@ public class MyHashMap<K, V> extends MyBetterMap<K, V> implements Map<K, V> {
 	/**
 	 * 
 	 */
-	private void rehash() {
+	protected void rehash() {
 		// save the existing entries
 		List<MyLinearMap<K, V>> oldMaps = maps;
 

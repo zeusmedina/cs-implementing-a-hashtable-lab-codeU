@@ -2,6 +2,7 @@ package com.flatironschool.javacs;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.jfree.data.xy.XYSeries;
 
@@ -14,11 +15,12 @@ public class ProfileMapPut {
 	 */
 	public static void main(String[] args) {
 		//profileHashMapPut();
-		profileMyHashMapPut();
+		//profileMyHashMapPut();
+		profileMyFixedHashMapPut();
 	}
 
 	/**
-	 * Characterize the run time of adding to the end of an ArrayList
+	 * Characterize the run time of putting a key in java.util.HashMap
 	 */
 	public static void profileHashMapPut() {
 		Timeable timeable = new Timeable() {
@@ -30,7 +32,7 @@ public class ProfileMapPut {
 
 			public void timeMe(int n) {
 				for (int i=0; i<n; i++) {
-					map.put(new Integer(i).toString(), i);
+					map.put(String.format("%10d", i), i);
 				}
 			}
 		};
@@ -40,7 +42,7 @@ public class ProfileMapPut {
 	}
 	
 	/**
-	 * Characterize the run time of adding to the end of an ArrayList
+	 * Characterize the run time of putting a key in MyHashMap
 	 */
 	public static void profileMyHashMapPut() {
 		Timeable timeable = new Timeable() {
@@ -52,7 +54,7 @@ public class ProfileMapPut {
 
 			public void timeMe(int n) {
 				for (int i=0; i<n; i++) {
-					map.put(new Integer(i).toString(), i);
+					map.put(String.format("%10d", i), i);
 				}
 			}
 		};
@@ -62,6 +64,28 @@ public class ProfileMapPut {
 	}
 	
 
+	/**
+	 * Characterize the run time of putting a key in MyFixedHashMap
+	 */
+	public static void profileMyFixedHashMapPut() {
+		Timeable timeable = new Timeable() {
+			Map<String, Integer> map;
+
+			public void setup(int n) {
+				map = new MyFixedHashMap<String, Integer>();
+			}
+
+			public void timeMe(int n) {
+				for (int i=0; i<n; i++) {
+					map.put(String.format("%10d", i), i);
+				}
+			}
+		};
+		int startN = 8000;
+		int endMillis = 1000;
+		runProfiler("MyFixedHashMap put", timeable, startN, endMillis);
+	}
+	
 	/**
 	 * Runs the profiles and displays results.
 	 * 
