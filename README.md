@@ -77,7 +77,7 @@ public class MyHashMap<K, V> extends MyBetterMap<K, V> implements Map<K, V> {
 
 `MyHashMap` extends `MyBetterMap`, so it inherits the methods defined there.  The only method it overrides is `put` which calls `put` in the superclass — that is, it calls the version of `put` in `MyBetterMap` — and then it checks whether it has to rehash.  Calling `size` returns the total number of entries, `n`.  Calling `maps.size` returns the number of embedded maps, `k`.
 
-The constant `FACTOR`, which is called the **load factor**, determines the maximum number of entries per sub-map, on average.  If `n > k * FACTOR`, that means `n/k > FACTOR`, which means the number of entries per sub-map exceeds the threshold, so we call `rehash`. 
+The constant `FACTOR`, which is called the **load factor**, determines the maximum number of entries per sub-map, on average.  If `n > k * FACTOR`, that means `n/k > FACTOR`, which means the number of entries per sub-map exceeds the threshold, so we call `rehash`.
 
 *  In `javacs-lab08`, run `ant build` to compile the source files.  Then run `ant test2`, which runs `MyHashMapTest`.  It should fail because our implementation of `rehash` throws an exception.  Your job is to fill it in.
 
@@ -109,7 +109,7 @@ Each method hashes a key, which is constant time, and then invokes a method on a
 
 So far, so good.  But the other core method, `put`, is a little harder to analyze.  When we don't have to rehash, it is constant time, but when we do, it's linear.  In that way, it's similar to `ArrayList.add`, and for the same reason, it turns out to be constant time if we average over a series of `put` operations.  Again, the argument is based on [amortized analysis](https://en.wikipedia.org/wiki/Amortized_analysis).
 
-Suppose the initial number of sub-maps, `k`, is 2, and the load factor is 1.  Now let's see how much work it takes to `put` a series of keys.  As the basic "unit of work", we'll count the number of times we have to hash a key and add it to a sub-map.
+Suppose the initial number of sub-maps, `k`, is 2, and the load factor is 1.  Now let's see how much work it takes to `put` a series of keys.  As the basic "unit of work," we'll count the number of times we have to hash a key and add it to a sub-map.
 
 The first time we call `put` it takes 1 unit of work.  The second time also takes 1 unit.  The third time we have to rehash, so it takes 2 units to rehash the existing keys and 1 unit to hash the new key.
 
@@ -117,7 +117,7 @@ Now the size of the hash table is 4, so the next time we call `put`, it takes 1 
 
 The following figure shows the pattern, with the normal work of hashing a new key shown across the bottom and extra work of rehashing shown as a tower.
 
-![alt tag](https://raw.githubusercontent.com/learn-co-curriculum/cs-implementing-a-hashtable-lab/wip-master/hashtable.png?token=ABy37X7YjrZerzf9j2RtiOxtqv48qltMks5W8VCMwA%3D%3D)
+![hashtable](https://curriculum-content.s3.amazonaws.com/javacs/cs-implementing-a-hashtable-lab/hashtable.png)
 
 As the arrows suggest, if we knock down the towers, each one fills the space before the next tower.  The result is a uniform height of 2 units, which shows that the average work per `put` is about 2 units.  And that means that `put` is constant time on average.
 
@@ -149,11 +149,11 @@ And there's one more limitation: some of the methods that were constant time in 
 
 Before we go on, we should check whether `MyHashMap` is really constant time.
 
-*  In `javacs-lab08`, run `ant build` to compile the source files.  Then run `ant ProfileMapPut`.  It measures the runtime of `HashMap.put` (provided by Java) with a range of problem sizes, and plots runtime versus problem size on a log-log scale.  If this operation is constant time, the total time for `n` operations should be linear, so the result should be a straight line with slope 1.  When we ran this code, the estimated slope was close to 1, which is consistent with our analysis.  You should get something similar.
+*  In `javacs-lab08`, run `ant build` to compile the source files.  Then run `ant ProfileMapPut`.  It measures the runtime of `HashMap.put` (provided by Java) with a range of problem sizes and plots runtime versus problem size on a log-log scale.  If this operation is constant time, the total time for `n` operations should be linear, so the result should be a straight line with slope 1.  When we ran this code, the estimated slope was close to 1, which is consistent with our analysis.  You should get something similar.
 
 *  Modify `ProfileMapPut.java` so it profiles your implementation, `MyHashMap`, instead of Java's `HashMap`.  Run the profiler again and see if the slope is near 1.  You might have to adjust `startN` and `endMillis` to find a range of problem sizes where the runtimes are more than a few milliseconds, but not more than a few thousand.
 
-*  When we ran this code, we got a surprise: the slope was about 1.7, which suggests that our implementation is not constant time after all.  It contains a "performance bug".  As the last exercise for this lab, you should track down the error, fix it, and confirm that `put` is constant time, as expected.
+*  When we ran this code, we got a surprise: the slope was about 1.7, which suggests that our implementation is not constant time after all.  It contains a "performance bug."  As the last exercise for this lab, you should track down the error, fix it, and confirm that `put` is constant time, as expected.
 
 
 ## Resources
